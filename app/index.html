@@ -1,0 +1,49 @@
+<html ng-app="menuManager">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css"/>
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+</head>
+<body class="container" ng-controller="MenuController as menuCtrl">
+<div>
+    <form name="form" ng-controller="MenuFormController as menuFormCtrl"
+          ng-submit="menuFormCtrl.addMenu(menuFormCtrl.menu)">
+        <table>
+            <tbody>
+            <tr cellspan="2"></tr>
+            <tr>
+                <td ng-repeat="entree in menuCtrl.entree">
+                    <fieldset class="form-group">
+                        <select>
+                            <option ng-model="entree.name">{{entree.name}}</option>
+                            <option ng-repeat="entreeSpecial in menuCtrl.entreeSpecials" ng-model="menuFormCtrl.entree.name">
+                                {{entreeSpecial.name}}
+                            </option>
+                        </select>
+                        <input type="checkbox"
+                               ng-model="menuFormCtrl.menu.entree.isChoose"/>
+                    </fieldset>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <fieldset>
+            <input type="submit" class="btn btn-primary pull-right" value="Valider menu">
+        </fieldset>
+            {{menuFormCtrl.menusFinal}}
+    </form>
+
+    <form name="form" ng-controller="CustomController as customCtrl" ng-submit="customCtrl.addEntreeSpecial()">
+        <fieldset>
+            <label>Ajouter une entrée</label>
+            <input ng-model="customCtrl.entreeSpecial.name" type="text">
+            <input type="submit" class="btn btn-primary pull-right" value="Ajouter">
+        </fieldset>
+    </form>
+
+    {{menuCtrl.entreeSpecials}}
+</div>
+</body>
+</html>
